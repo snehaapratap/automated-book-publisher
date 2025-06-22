@@ -11,9 +11,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def write_to_file(filename, content):
-    os.makedirs("data/processed", exist_ok=True)
-    with open(f"data/processed/{filename}", "w", encoding="utf-8") as f:
-        f.write(content)
+    dir_path = "data/processed"
+    os.makedirs(dir_path, exist_ok=True)  # Ensure directory exists
+    file_path = os.path.join(dir_path, filename)
+    try:
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(content)
+        print(f"📁 Saved to {file_path}")
+    except Exception as e:
+        print(f"❌ Failed to write {file_path}: {e}")
 
 def main():
     url = "https://en.wikisource.org/wiki/The_Gates_of_Morning/Book_1/Chapter_1"
