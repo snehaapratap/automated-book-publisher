@@ -1,7 +1,7 @@
 import requests
 import os
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")  # Set this in your .env or export in terminal
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")  
 BASE_URL = "https://api.groq.com/openai/v1/chat/completions"
 MODEL = "mixtral-8x7b-32768"
 

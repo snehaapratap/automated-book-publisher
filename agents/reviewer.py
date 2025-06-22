@@ -1,12 +1,22 @@
-from openai import OpenAI
-openai = OpenAI()
+import requests
+import os
+
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+BASE_URL = "https://api.groq.com/openai/v1/chat/completions"
+MODEL = "mixtral-8x7b-32768"
 
 def review_chapter(content):
-    response = openai.chat.completions.create(
-        model="gpt-4",
-        messages=[
-            {"role": "system", "content": "You're a professional editor. Provide grammar fixes and style improvements."},
+    headers = {
+        "Authorization": f"Bearer {GROQ_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "model": MODEL,
+        "messages": [
+            {"role": "system", "content": "You're a professional editor. Improve grammar, coherence, and clarity."},
             {"role": "user", "content": content}
-        ]
-    )
-    return response.choices[0].message.content
+        ],
+        "temperature": 0.5
+    }
+    response = requests.post(BASE_URL, headers=headers, json=payload)
+    return response.json()["choices"][0]["message"]["content"]
