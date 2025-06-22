@@ -5,6 +5,8 @@ from agents.reviewer import review_chapter
 from agents.human_loop import get_human_input
 from versioning.db import save_version
 import uuid
+from dotenv import load_dotenv
+load_dotenv()
 
 def main():
     url = "https://en.wikisource.org/wiki/The_Gates_of_Morning/Book_1/Chapter_1"
